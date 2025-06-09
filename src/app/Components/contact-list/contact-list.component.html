@@ -1,0 +1,251 @@
+<div class="my-3 p-3 bg-body rounded shadow-sm">
+    <form [formGroup]="formGroupContact">
+        <div class="m-5">
+            <h2 class="text-center fw-bold text-body-emphasis">Lista de contatos</h2>
+            <div class="row mt-5 mb-5">
+                <div class="col-3">
+                    <input type="text" placeholder="Buscar..." class="form-control">
+                </div>
+                <div class="col-3">
+                    <select  class="form-select">
+                            <option value="Familia">Família</option>
+                            <option value="Amigo">Amigo</option>
+                            <option value="Colega de Trabalho">Colega de Trabalho</option>
+                            <option value="Prestador de Serviço">Prestador de Serviço</option>
+                            <option value="Outro">Outros</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateModal" aria-hidden="true">
+            <div class="modal-dialog modal-xl">
+                <div class="modal-content p-5 text-center text-muted bg-body border border-dashed rounded-5">
+                <button
+                    type="button"
+                    class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill"
+                    data-bs-dismiss="modal"
+                    aria-label="Close">
+                </button>
+                <h1 class="text-body-emphasis mb-5">Outro Modal</h1>
+                <div class="row">
+                    <div *ngIf="isEditing" class="mb-3 col-3">
+                        <label for="inputName" class="form-label fw-bold">Nome</label>
+                        <input formControlName="name" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-6">
+                        <label for="inputName" class="form-label fw-bold">Sobrenome</label>
+                        <input formControlName="lastName" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-3">
+                        <label for="inputName" class="form-label fw-bold">Apelido</label>
+                        <input formControlName="nickname" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                </div>
+                <div *ngIf="isEditing" class="row">
+                    <div class="mb-3 col-6">
+                        <label for="inputName" class="form-label fw-bold">Telefone</label>
+                        <input formControlName="phone" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-6">
+                        <label for="inputName" class="form-label fw-bold">E-mail</label>
+                        <input formControlName="email" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                </div>
+                <div *ngIf="isEditing" class="row">
+                    <div class="mb-3 col-4">
+                        <label for="inputName" class="form-label fw-bold">Data de nascimento</label>
+                        <input formControlName="dateBorn" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-4">
+                        <label for="inputName" class="form-label fw-bold">Idade</label>
+                        <input formControlName="age" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-4">
+                        <label for="inputName" class="form-label fw-bold">Sexo</label>
+                        <select  formControlName="gender" class="form-select">
+                            <option value="masculino">Masculino</option>
+                            <option value="feminino">Feminino</option>
+                        </select>
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                </div>
+                <div *ngIf="isEditing" class="row">
+                    <div class="mb-3 col-4">
+                        <label for="inputName" class="form-label fw-bold">Cidade</label>
+                        <input formControlName="city" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-4">
+                        <label for="inputName" class="form-label fw-bold">Bairro</label>
+                        <input formControlName="area" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                    <div *ngIf="isEditing" class="mb-3 col-4">
+                        <label for="inputName" class="form-label fw-bold">Categoria</label>
+                        <select  formControlName="category" class="form-select">
+                            <option value="Familia">Família</option>
+                            <option value="Amigo">Amigo</option>
+                            <option value="Colega de Trabalho">Colega de Trabalho</option>
+                            <option value="Prestador de Serviço">Prestador de Serviço</option>
+                            <option value="Outro">Outros</option>
+                        </select>
+                        <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
+                    </div>
+                </div>
+                <div *ngIf="isEditing" class="row">                    
+                    <div class="p-4 col-4">
+                        <div class="form-check">
+                            <input class="form-check-input" formControlName="favorite" type="checkbox" value="true" id="checkDefault">
+                            <label class="form-check-label" for="checkDefault">
+                                Adicionar aos favoritos
+                            </label>
+                        </div>
+                    </div>
+            </div>
+
+                <button class="btn btn-primary px-5 mt-3"  data-bs-dismiss="modal" (click)="update()">
+                    Atualizar
+                </button>
+            </div>
+            </div>
+            </div>
+            
+
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nome</th>
+                            <th scope="col">Sobrenome</th>
+                            <th scope="col">Telefone</th>
+                            <th scope="col">E-mail</th>
+                            <th scope="col">Idade</th>
+                            <th scope="col">Alterar</th>
+                            <th scope="col">Remover</th>
+                            <th scope="col">+</th>                                  
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr  *ngFor="let n of contacts">
+                            <th scope="row">{{n.name}}</th>
+                            <td>{{n.lastName}}</td>
+                            <td>{{n.phone}}</td>
+                            <td>{{n.email}}</td>
+                            <td>{{n.age}}</td>
+                            <td><button class="btn btn-danger"
+                                        (click)="delete(n)">
+                                        Remover
+                                </button>
+                            </td>
+                            <td><button
+                                    class="btn btn-warning"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#UpdateModal"
+                                    (click)="onClickUpdate(n)">
+                                    Alterar
+                                </button>
+                            </td>
+                            <td><button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#heroModal"
+                                (click)="selectById(n)">
+                                +
+                            </button>
+                            </td>
+                        </tr>
+                </tbody>
+            </table>
+
+
+            <div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content p-0 border-0 shadow-lg rounded-4">
+                    <div class="modal-body p-0 position-relative">
+                        <button
+                        type="button"
+                        class="position-absolute top-0 end-0 p-3 m-3 btn-close bg-secondary bg-opacity-10 rounded-pill"
+                        data-bs-dismiss="modal"
+                        aria-label="Close">
+                        </button>
+
+                        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 rounded-3">
+                        <div class="p-3 p-lg-5 pt-lg-3 w-100">
+                            <h1 class="fw-bold text-body-emphasis mb-5 text-center" *ngIf="contact">
+                                Informação completa: {{contact.name}} {{contact.lastName}}
+                            </h1>
+
+                            <div class="list-group gap-2 row" *ngIf="contact">
+                                <div class="row">
+                                    <div class="list-group-item rounded-3 py-3 fw-bold col-3 mx-auto">
+                                        Nome
+                                        <span class="d-block small opacity-50">{{contact.name}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 fw-bold col-3 mx-auto">
+                                        Sobrenome
+                                        <span class="d-block small opacity-50">{{contact.lastName}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 fw-bold col-3 mx-auto">
+                                        Apelido
+                                        <span class="d-block small opacity-50">{{contact.nickname}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                        Telefone
+                                        <span class="d-block small opacity-50">{{contact.phone}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                        E-mail
+                                        <span class="d-block small opacity-50">{{contact.email}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                        Data de Nascimento
+                                        <span class="d-block small opacity-50">{{contact.dateBorn}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                        Idade
+                                        <span class="d-block small opacity-50">{{contact.age}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                        Gênero
+                                        <span class="d-block small opacity-50">{{contact.gender}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                        Cidade
+                                        <span class="d-block small opacity-50">{{contact.city}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                    Bairro
+                                    <span class="d-block small opacity-50">{{contact.area}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                    Categoria
+                                    <span class="d-block small opacity-50">{{contact.category}}</span>
+                                    </div>
+                                    <div class="list-group-item rounded-3 py-3 disabled fw-bold col-3 mx-auto">
+                                    Favorito
+                                    <span class="d-block small opacity-50">{{contact.favorite}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>       
+        </div>
+    </form>
+</div>

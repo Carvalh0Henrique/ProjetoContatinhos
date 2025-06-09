@@ -1,0 +1,20 @@
+.bg-sidebar {
+    background-color: #1B2A41;
+}
+
+.text:hover {
+    color: white;
+    font-weight: bold;
+}
+
+.bg-active {
+    background-color: #778DA9;
+}
+
+.font {
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+}
+
+.text1 {
+    color: #1B2A41
+}
