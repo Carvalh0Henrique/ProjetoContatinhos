@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { contactField } from '../contactField';
 
 
@@ -10,7 +10,7 @@ import { contactField } from '../contactField';
 
 export class ContactService {
 
-  apiUrl = "http://localhost:3000/contactJson"
+  apiUrl = "http://localhost:8080/contato"
 
   constructor(private http:HttpClient) { }
 
@@ -23,7 +23,9 @@ export class ContactService {
   }
 
   selectByFavorite(): Observable<contactField[]> {
-    return this.http.get<contactField[]>(`${this.apiUrl}?favorite=true`);
+    return this.http.get<contactField[]>(this.apiUrl).pipe(
+      map(contacts => contacts.filter(c => c.favorite === true))
+    );
   }
 
   save(contacts: contactField): Observable<contactField>{
@@ -37,4 +39,17 @@ export class ContactService {
   update(contacts:contactField): Observable<contactField>{
     return this.http.put<contactField>(`${this.apiUrl}/${contacts.id}`, contacts)
   }
+
+  getFilteredContacts(search?: string, category?: string): Observable<contactField[]> {
+    let queryParams = [];
+
+    if (search) queryParams.push(`search=${encodeURIComponent(search)}`);
+    if (category) queryParams.push(`category=${encodeURIComponent(category)}`);
+
+    const query = queryParams.length ? `?${queryParams.join('&')}` : '';
+
+    return this.http.get<contactField[]>(`http://localhost:8080/contato${query}`);
+  }
+
+
 }

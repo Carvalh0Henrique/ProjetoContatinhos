@@ -16,6 +16,9 @@ export class ContactListComponent implements OnInit{
   formGroupContact: FormGroup;
   isEditing: boolean = false;
   mensagem: string = '';
+  searchTerm: string = '';
+  selectedCategory: string = '';
+  filteredContacts: contactField[] = [];
 
   constructor(private ContactService: ContactService,
               private formBuilder: FormBuilder
@@ -33,17 +36,30 @@ export class ContactListComponent implements OnInit{
       city: [''],
       area: [''],
       category: [''],
-      favorite: ['']
+      favorite: [''],
+      searchTerm: [''],
+      selectedCategory: [''] 
     });
   }
 
   ngOnInit(): void {
     this.loadContacts();
-  } 
+
+    this.formGroupContact.get('searchTerm')?.valueChanges.subscribe(() => {
+      this.filterContacts();
+    });
+
+    this.formGroupContact.get('selectedCategory')?.valueChanges.subscribe(() => {
+      this.filterContacts();
+    });
+  }
 
   loadContacts(){
     this.ContactService.getAll().subscribe({
-      next: (json) => { this.contacts = json; }
+      next: (json) => { 
+        this.contacts = json;
+        this.filterContacts();
+      }
       }
     )
   }
@@ -83,5 +99,23 @@ export class ContactListComponent implements OnInit{
   clear() {
     this.isEditing = false;
     this.formGroupContact.reset();
+  }
+
+  filterContacts(): void {
+    const term = this.formGroupContact.get('searchTerm')?.value?.toLowerCase() || '';
+    const category = this.formGroupContact.get('selectedCategory')?.value || '';
+
+    this.filteredContacts = this.contacts.filter(contact => {
+      const matchesTerm = (
+        contact.name?.toLowerCase().includes(term) ||
+        contact.lastName?.toLowerCase().includes(term) ||
+        contact.email?.toLowerCase().includes(term) ||
+        contact.phone?.toString().includes(term)
+      );
+
+      const matchesCategory = category ? contact.category === category : true;
+
+      return matchesTerm && matchesCategory;
+    });
   }
 }

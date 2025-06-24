@@ -2,21 +2,22 @@
     <form [formGroup]="formGroupContact">
         <div class="m-5">
             <h2 class="text-center fw-bold text-body-emphasis">Lista de contatos</h2>
-            <div class="row mt-5 mb-5">
-                <div class="col-3">
-                    <input type="text" placeholder="Buscar..." class="form-control">
-                </div>
-                <div class="col-3">
-                    <select  class="form-select">
-                            <option value="Familia">Família</option>
-                            <option value="Amigo">Amigo</option>
-                            <option value="Colega de Trabalho">Colega de Trabalho</option>
-                            <option value="Prestador de Serviço">Prestador de Serviço</option>
-                            <option value="Outro">Outros</option>
-                    </select>
-                </div>
-            </div>
 
+            <div class="row mt-5 mb-5">
+            <div class="col-3">
+                <input type="text" formControlName="searchTerm" placeholder="Buscar..." class="form-control">
+            </div>
+            <div class="col-3">
+                <select formControlName="selectedCategory" class="form-select">
+                    <option value="">Todas as categorias</option>
+                    <option value="Familia">Família</option>
+                    <option value="Amigo">Amigo</option>
+                    <option value="Colega de Trabalho">Colega de Trabalho</option>
+                    <option value="Prestador de Serviço">Prestador de Serviço</option>
+                    <option value="Outro">Outros</option>
+                </select>
+            </div>
+            </div>
 
             <div class="modal fade" id="UpdateModal" tabindex="-1" aria-labelledby="UpdateModal" aria-hidden="true">
             <div class="modal-dialog modal-xl">
@@ -59,7 +60,7 @@
                 </div>
                 <div *ngIf="isEditing" class="row">
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Data de nascimento</label>
+                        <label for="inputName" class="form-label fw-bold">Data de nascimento</label> 
                         <input formControlName="dateBorn" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
                         <div id="nameHelp" class="form-text">Digite o título da sua tarefa</div>
                     </div>
@@ -133,7 +134,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr  *ngFor="let n of contacts">
+                        <tr  *ngFor="let n of filteredContacts">
                             <th scope="row">{{n.name}}</th>
                             <td>{{n.lastName}}</td>
                             <td>{{n.phone}}</td>

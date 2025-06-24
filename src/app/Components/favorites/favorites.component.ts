@@ -22,8 +22,8 @@ export class FavoritesComponent implements OnInit {
   }
 
   selectByFavorite() {
-      this.ContactService.selectByFavorite().subscribe( favoritos =>{
-        this.contacts = favoritos;
+      this.ContactService.selectByFavorite().subscribe( favorite =>{
+        this.contacts = favorite;
       }
       )
   }
