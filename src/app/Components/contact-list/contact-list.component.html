@@ -5,10 +5,10 @@
 
             <div class="row mt-5 mb-5">
             <div class="col-3">
-                <input type="text" formControlName="searchTerm" placeholder="Buscar..." class="form-control">
+                <input type="text" [(ngModel)]="searchTerm" [ngModelOptions]="{ standalone: true }" (ngModelChange)="filterContacts()" placeholder="Buscar..." class="form-control">
             </div>
             <div class="col-3">
-                <select formControlName="selectedCategory" class="form-select">
+                <select [(ngModel)]="selectedCategory" [ngModelOptions]="{ standalone: true }" (ngModelChange)="filterContacts()" class="form-select">
                     <option value="">Todas as categorias</option>
                     <option value="Familia">Família</option>
                     <option value="Amigo">Amigo</option>

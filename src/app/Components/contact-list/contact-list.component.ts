@@ -36,9 +36,7 @@ export class ContactListComponent implements OnInit{
       city: [''],
       area: [''],
       category: [''],
-      favorite: [''],
-      searchTerm: [''],
-      selectedCategory: [''] 
+      favorite: ['']
     });
   }
 
@@ -102,8 +100,8 @@ export class ContactListComponent implements OnInit{
   }
 
   filterContacts(): void {
-    const term = this.formGroupContact.get('searchTerm')?.value?.toLowerCase() || '';
-    const category = this.formGroupContact.get('selectedCategory')?.value || '';
+    const term = this.searchTerm.toLowerCase() || '';
+    const category = this.selectedCategory || '';
 
     this.filteredContacts = this.contacts.filter(contact => {
       const matchesTerm = (
