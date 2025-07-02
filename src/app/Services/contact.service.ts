@@ -10,7 +10,7 @@ import { contactField } from '../contactField';
 
 export class ContactService {
 
-  apiUrl = "http://localhost:8080/contato"
+  apiUrl = "https://contatinhos.duckdns.org/contato"
 
   constructor(private http:HttpClient) { }
 
@@ -48,7 +48,7 @@ export class ContactService {
 
     const query = queryParams.length ? `?${queryParams.join('&')}` : '';
 
-    return this.http.get<contactField[]>(`http://localhost:8080/contato${query}`);
+    return this.http.get<contactField[]>(`https://contatinhos.duckdns.org/contato${query}`);
   }
 
 
