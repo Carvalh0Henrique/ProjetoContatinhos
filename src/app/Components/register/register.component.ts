@@ -7,7 +7,7 @@ import { ContactService } from '../../Services/contact.service';
   selector: 'app-register',
   standalone: false,
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
 
@@ -35,6 +35,11 @@ export class RegisterComponent implements OnInit {
       area: [''],
       category: [''],
       favorite: ['']
+    });
+
+    this.formGroupContact.get('dateBorn')?.valueChanges.subscribe(dateBorn => {
+      const age = this.calculateAge(dateBorn);
+      this.formGroupContact.get('age')?.setValue(age, { emitEvent: false });
     });
   }
 
@@ -69,10 +74,33 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-
   clear() {
     this.isEditing = false;
     this.formGroupContact.reset();
   }
-}
 
+  public calculateAge(dateBorn: string): number {
+
+    if (!dateBorn) return 0;
+
+    let birthDate: Date | null = null;
+
+    if (/^\d{8}$/.test(dateBorn)) {
+      const day = parseInt(dateBorn.substring(0, 2), 10);
+      const month = parseInt(dateBorn.substring(2, 4), 10);
+      const year = parseInt(dateBorn.substring(4, 8), 10);
+      birthDate = new Date(year, month - 1, day);
+    }
+
+    if (!birthDate || isNaN(birthDate.getTime())) return 0;
+
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
+  }
+}

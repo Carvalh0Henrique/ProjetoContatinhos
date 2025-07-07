@@ -40,6 +40,11 @@ export class ContactListComponent implements OnInit{
       category: [''],
       favorite: ['']
     });
+
+    this.formGroupContact.get('dateBorn')?.valueChanges.subscribe(dateBorn => {
+      const age = this.calculateAge(dateBorn);
+      this.formGroupContact.get('age')?.setValue(age, { emitEvent: false });
+    });
   }
 
   ngOnInit(): void {
@@ -123,5 +128,30 @@ export class ContactListComponent implements OnInit{
 
       return matchesTerm && matchesCategory;
     });
+  }
+
+  public calculateAge(dateBorn: string): number {
+
+    if (!dateBorn) return 0;
+
+    let birthDate: Date | null = null;
+
+    if (/^\d{8}$/.test(dateBorn)) {
+      const day = parseInt(dateBorn.substring(0, 2), 10);
+      const month = parseInt(dateBorn.substring(2, 4), 10);
+      const year = parseInt(dateBorn.substring(4, 8), 10);
+      birthDate = new Date(year, month - 1, day);
+    }
+
+    if (!birthDate || isNaN(birthDate.getTime())) return 0;
+
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+      age--;
+    }
+
+    return age;
   }
 }

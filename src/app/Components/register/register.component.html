@@ -55,7 +55,7 @@
                     </div>
                     <div class="mb-3 col-4">
                         <label for="age" class="form-label fw-bold">Idade</label>
-                        <input formControlName="age" type="text" class="form-control" id="age" aria-describedby="ageHelp">
+                        <input type="text" class="form-control" id="age" aria-describedby="ageHelp" [value]="calculateAge(formGroupContact.get('dateBorn')?.value)" readonly>
                         <div id="ageHelp" class="form-text">[Opicional]</div>
                     </div>
                     <div class="mb-3 col-4">
