@@ -19,6 +19,8 @@ export class ContactListComponent implements OnInit{
   searchTerm: string = '';
   selectedCategory: string = '';
   filteredContacts: contactField[] = [];
+  submitted = false;
+  mensagemError: string = '';
 
   constructor(private ContactService: ContactService,
               private formBuilder: FormBuilder
@@ -84,14 +86,20 @@ export class ContactListComponent implements OnInit{
   }
 
   update() {
-      this.ContactService.update(this.formGroupContact.value).subscribe(
-        {
-          next: () => {
-            this.loadContacts();
-            this.clear();
-          }
+    this.submitted= true;
+    if (this.formGroupContact.invalid) {
+      this.mensagemError = 'Preencha todos os campos obrigatórios.';
+      setTimeout(() => this.mensagemError = '', 3000);
+      return;
+    }
+    this.ContactService.update(this.formGroupContact.value).subscribe(
+      {
+        next: () => {
+          this.loadContacts();
+          this.clear();
         }
-      )
+      }
+    )
   }
 
   clear() {

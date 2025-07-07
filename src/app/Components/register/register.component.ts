@@ -15,6 +15,8 @@ export class RegisterComponent implements OnInit {
   formGroupContact: FormGroup;
   isEditing: boolean = false;
   mensagem: string = '';
+  mensagemError: string = '';
+  submitted= false;
 
   constructor(private ContactService: ContactService,
               private formBuilder: FormBuilder
@@ -48,22 +50,25 @@ export class RegisterComponent implements OnInit {
   }
 
   save() {
-    this.ContactService.save(this.formGroupContact.value).subscribe(
-      {
-        next: json => {
-          this.contacts.push(json);
-          this.formGroupContact.reset();
+    this.submitted= true;
+    if (this.formGroupContact.invalid) {
+      this.mensagemError = 'Preencha todos os campos obrigatórios.';
+      setTimeout(() => this.mensagemError = '', 3000);
+      return;
+    }
 
-          this.isEditing = true
-          this.mensagem = 'Tarefa adicionada com sucesso!';
+    this.ContactService.save(this.formGroupContact.value).subscribe({
+      next: json => {
+        this.contacts.push(json);
+        this.formGroupContact.reset();
 
-          setTimeout(() => {
-            this.mensagem = '';
-          }, 3000);
-        }
+        this.isEditing = true;
+        this.mensagem = 'Tarefa adicionada com sucesso!';
+        setTimeout(() => this.mensagem = '', 3000);
       }
-    )
+    });
   }
+
 
   clear() {
     this.isEditing = false;

@@ -4,78 +4,90 @@
             <h1 class="text-center fw-bold text-body-emphasis mb-5">Cadastre o seu contato!</h1>
             <div *ngIf="mensagem" class="alert alert-success mt-5 text-center fw-bold">
                   {{ mensagem }}
-                </div>
-             <form [formGroup]="formGroupContact"> 
+            </div>
+            <div *ngIf="mensagemError" class="alert alert-danger mt-5 text-center fw-bold">
+                {{ mensagemError }}
+            </div>
+            <form [formGroup]="formGroupContact" class="needs-validation" novalidate>
                 <div class="row">
                     <div class="mb-3 col-3">
                         <label for="inputName" class="form-label fw-bold">Nome</label>
-                        <input formControlName="name" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite o nome do seu contato</div>
+                        <input formControlName="name" type="text" class="form-control" id="inputName" aria-describedby="nameHelp" required
+                            [ngClass]="{'is-invalid': submitted && formGroupContact.get('name')?.invalid}">
+                        <div *ngIf="submitted && formGroupContact.get('name')?.invalid" class="invalid-feedback">
+                            Nome é obrigatório.
+                        </div>
                     </div>
                     <div class="mb-3 col-6">
-                        <label for="inputName" class="form-label fw-bold">Sobrenome</label>
-                        <input formControlName="lastName" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite o sobrenome do seu contato</div>
+                        <label for="inputLastName" class="form-label fw-bold">Sobrenome</label>
+                        <input formControlName="lastName" type="text" class="form-control" id="inputLastName" aria-describedby="lastNameHelp" required
+                            [ngClass]="{'is-invalid': submitted && formGroupContact.get('lastName')?.invalid}">
+                        <div *ngIf="submitted && formGroupContact.get('lastName')?.invalid" class="invalid-feedback">
+                            Sobrenome é obrigatório.
+                        </div>
                     </div>
                     <div class="mb-3 col-3">
-                        <label for="inputName" class="form-label fw-bold">Apelido</label>
-                        <input formControlName="nickname" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite o apelido do seu contato</div>
+                        <label for="inputNickname" class="form-label fw-bold">Apelido</label>
+                        <input formControlName="nickname" type="text" class="form-control" id="inputNickname" aria-describedby="nicknameHelp">
+                        <div id="nicknameHelp" class="form-text">[Opicional]</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-6">
-                        <label for="inputName" class="form-label fw-bold">Telefone</label>
-                        <input formControlName="phone" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite o telefone do seu contato</div>
+                        <label for="phone" class="form-label fw-bold">Telefone</label>
+                        <input formControlName="phone" type="text" mask="(00) 90000-0000" placeholder="(00) 00000-0000" class="form-control" id="phone" required
+                            [ngClass]="{'is-invalid': submitted && formGroupContact.get('phone')?.invalid}">
+                        <div *ngIf="submitted && formGroupContact.get('phone')?.invalid" class="invalid-feedback">
+                            Telefone é obrigatório.
+                        </div>
                     </div>
                     <div class="mb-3 col-6">
-                        <label for="inputName" class="form-label fw-bold">E-mail</label>
-                        <input formControlName="email" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite o e-mail do seu contato</div>
+                        <label for="email" class="form-label fw-bold">E-mail</label>
+                        <input formControlName="email" type="text" class="form-control" id="email" placeholder="you@example.com" aria-describedby="emailHelp">
+                        <div id="emailHelp" class="form-text">[Opicional]</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Data de nascimento</label>
-                        <input formControlName="dateBorn" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite a data de nascimento do seu contato</div>
+                        <label for="dateBorn" class="form-label fw-bold">Data de nascimento</label>
+                        <input formControlName="dateBorn" type="text" mask="00/00/0000" placeholder="__/__/____" class="form-control" id="dateBorn" aria-describedby="dateBornHelp">
+                        <div id="dateBornHelp" class="form-text">[Opicional]</div>
                     </div>
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Idade</label>
-                        <input formControlName="age" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite a idade do seu contato</div>
+                        <label for="age" class="form-label fw-bold">Idade</label>
+                        <input formControlName="age" type="text" class="form-control" id="age" aria-describedby="ageHelp">
+                        <div id="ageHelp" class="form-text">[Opicional]</div>
                     </div>
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Sexo</label>
-                        <select  formControlName="gender" class="form-select">
+                        <label for="gender" class="form-label fw-bold">Sexo</label>
+                        <select formControlName="gender" class="form-select" id="gender">
                             <option value="masculino">Masculino</option>
                             <option value="feminino">Feminino</option>
                         </select>
-                        <div id="nameHelp" class="form-text">Escolha o sexo do seu contato</div>
+                        <div id="genderHelp" class="form-text">Escolha o sexo do seu contato [Opicional]</div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Cidade</label>
-                        <input formControlName="city" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite a cidade do seu contato</div>
+                        <label for="city" class="form-label fw-bold">Cidade</label>
+                        <input formControlName="city" type="text" class="form-control" id="city" aria-describedby="cityHelp">
+                        <div id="cityHelp" class="form-text">[Opicional]</div>
                     </div>
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Bairro</label>
-                        <input formControlName="area" type="text" class="form-control" id="inputName" aria-describedby="nameHelp">
-                        <div id="nameHelp" class="form-text">Digite o bairro do seu contato</div>
+                        <label for="area" class="form-label fw-bold">Bairro</label>
+                        <input formControlName="area" type="text" class="form-control" id="area" aria-describedby="areaHelp">
+                        <div id="areaHelp" class="form-text">[Opicional]</div>
                     </div>
                     <div class="mb-3 col-4">
-                        <label for="inputName" class="form-label fw-bold">Categoria</label>
-                        <select  formControlName="category" class="form-select">
+                        <label for="category" class="form-label fw-bold">Categoria</label>
+                        <select formControlName="category" class="form-select" id="category">
                             <option value="Familia">Família</option>
                             <option value="Amigo">Amigo</option>
                             <option value="Colega de Trabalho">Colega de Trabalho</option>
                             <option value="Prestador de Serviço">Prestador de Serviço</option>
                             <option value="Outro">Outros</option>
                         </select>
-                        <div id="nameHelp" class="form-text">Escolha a categoria do seu contato</div>
+                        <div id="categoryHelp" class="form-text">Escolha a categoria do seu contato [Opicional]</div>
                     </div>
                 </div>
                 <div class="row">                    
@@ -89,7 +101,7 @@
                     </div>
                 </div>
                 <div class="row mt-3 d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button class="btn btn-primary col-2" (click)="save()">
+                    <button class="btn btn-primary col-2" type="submit" (click)="save()">
                         Salvar
                     </button>
                     <button class="btn btn-danger col-2" (click)="clear()">
@@ -99,4 +111,4 @@
             </form>
         </div>
     </div>
-</div>
+</div> 

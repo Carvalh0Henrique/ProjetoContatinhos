@@ -12,7 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FavoritesComponent } from './Components/favorites/favorites.component';
 import { provideHttpClient } from '@angular/common/http';
-import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 @NgModule({
   declarations: [
@@ -29,9 +29,12 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
-  providers: [provideHttpClient()],
+
+  providers: [provideHttpClient(), provideNgxMask()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
